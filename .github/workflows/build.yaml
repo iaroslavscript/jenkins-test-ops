@@ -1,0 +1,24 @@
+name: Build package
+
+on:
+  push:
+    branches: [ 'master' ]
+  pull_request:
+    branches: [ '**' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: 21
+
+    - name: Build with Gradle
+      run: ./gradlew build
