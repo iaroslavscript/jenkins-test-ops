@@ -1,0 +1,4 @@
+* text eol=lf
+
+# Allow gradlew.bat to retain CRLF
+gradlew.bat eol=crlf
