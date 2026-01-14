@@ -1,13 +1,26 @@
+
 [versions]
-# Define versions in one place
-spock = "2.4-groovy-4.0"
-junit = "6.0.2"
+groovy-all = "2.4.21"
+groovy-cps = "4238.va_6fb_65c1f699"
+groovy-test = "2.4.21"
+jenkins-pipeline-unit = "1.29"
+junit-jupiter = "6.0.2"
+junit-platform = "6.0.2"
+
 
 [libraries]
 # Define the coordinates
-spock-core = { group = "org.spockframework", name = "spock-core", version.ref = "spock" }
-junit-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit" }
+groovy-all = { group = "org.codehaus.groovy", name = "groovy-all", version.ref = "groovy-all" }
+groovy-cps = { group = "com.cloudbees", name = "groovy-cps", version.ref = "groovy-cps" }
+groovy-test = { group = "org.codehaus.groovy", name = "groovy-test", version.ref = "groovy-test" }
+jenkins-pipeline-unit = { group = "com.lesfurets", name = "jenkins-pipeline-unit", version.ref = "jenkins-pipeline-unit" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit-jupiter" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-platform" }
+junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junit-jupiter" }
+
 
 [bundles]
-# Group test dependencies together
-testing = ["spock-core", "junit-launcher"]
+compile = ["groovy-all", "groovy-cps"]
+testing = ["groovy-test", "jenkins-pipeline-unit", "junit-jupiter"]
+testrun = ["junit-jupiter-engine", "junit-platform-launcher"]
