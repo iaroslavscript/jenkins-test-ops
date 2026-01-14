@@ -2,12 +2,14 @@
 # Define versions in one place
 spock = "2.4-groovy-4.0"
 junit = "6.0.2"
+jenkins-pipeline-unit = "1.30"
 
 [libraries]
 # Define the coordinates
 spock-core = { group = "org.spockframework", name = "spock-core", version.ref = "spock" }
 junit-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit" }
+jenkins-pipeline-unit = { group = "com.lesfurets", name = "jenkins-pipeline-unit", version.ref = "jenkins-pipeline-unit" }
 
 [bundles]
 # Group test dependencies together
-testing = ["spock-core", "junit-launcher"]
+testing = ["spock-core", "junit-launcher", "jenkins-pipeline-unit"]
