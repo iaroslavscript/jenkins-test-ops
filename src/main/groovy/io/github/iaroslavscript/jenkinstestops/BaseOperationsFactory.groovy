@@ -7,8 +7,8 @@ package io.github.iaroslavscript.jenkinstestops
  */
 abstract class BaseOperationsFactory implements OperationsFactory {
 
-    protected final Map<class, Closure> executorFactories = [:]
-    protected final Map<class, Closure> cachedExecutors = [:]
+    protected final Map<Class, Closure> executorFactories = [:]
+    protected final Map<Class, Closure> cachedExecutors = [:]
 
     /** 
      * Generic method to register a custom executor factory.
