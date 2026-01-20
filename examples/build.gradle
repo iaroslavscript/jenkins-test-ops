@@ -1,10 +1,6 @@
 plugins {
     id 'groovy'
-    id 'maven-publish'
 }
-
-group = 'io.github.iaroslavscript'
-version = '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -12,6 +8,8 @@ repositories {
 }
 
 dependencies {
+    implementation project(':')
+
     // Using the bundle from the gradle/lib.versions.toml file
     compileOnly libs.bundles.compile
     testImplementation libs.bundles.testing
@@ -24,6 +22,7 @@ sourceSets {
     }
     test {
         groovy { srcDirs = ['src/test/groovy'] }
+        java { srcDirs = ['src/test/java'] }
     }
 }
 
@@ -31,13 +30,5 @@ test {
     useJUnitPlatform()
     testLogging {
         events 'passed', 'skipped', 'failed'
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
     }
 }
