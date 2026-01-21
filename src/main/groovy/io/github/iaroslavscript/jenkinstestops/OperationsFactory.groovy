@@ -12,4 +12,11 @@ interface OperationsFactory {
      * @param factory Closure that creates the executor instance.
      */
     def <T> void register(Class<T> interfaceType, Closure factory)
+
+    /**
+     * Generic method to create or retrieve a cached executor instance.
+     * @param interfaceType The class type of the executor interface.
+     * @return An instance of the requested executor type.
+     */
+    def <T> T create(Class<T> interfaceType)
 }
