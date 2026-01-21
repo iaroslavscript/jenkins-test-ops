@@ -19,4 +19,9 @@ interface OperationsFactory {
      * @return An instance of the requested executor type.
      */
     def <T> T create(Class<T> interfaceType)
+
+    /**
+     * Resets the factory's internal state, clearing cached executors.
+     */
+    void reset()
 }

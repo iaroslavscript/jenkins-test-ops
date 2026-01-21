@@ -35,5 +35,20 @@ abstract class BaseOperationsFactory implements OperationsFactory {
 
         return cachedExecutors[interfaceType] as T
     }
+
+    /**
+     * Resets the factory's internal state, clearing cached executors.
+     */
+    void reset() {
+        cachedExecutors.clear()
+        onReset()
+    }
+
+    /**
+     * Hook method called after reset to allow subclasses to perform additional cleanup.
+     */
+    protected void onReset() {
+        // Default implementation does nothing
+    }
 }
 

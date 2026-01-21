@@ -11,9 +11,20 @@ class BaseOperationsFactoryTest {
 
     // Concrete test implementation of abstract class
     private static class TestOperationsFactory extends BaseOperationsFactory {
-        // Direct access to protected field for testing
+        int onResetCallCount = 0
+        
+        // Direct access to protected fields for testing
         Map<Class, Closure> getFactories() {
             return this.@executorFactories
+        }
+
+        Map<Class, Closure> getCachedExecutors() {
+            return this.@cachedExecutors
+        }
+        
+        @Override
+        protected void onReset() {
+            onResetCallCount++
         }
     }
 
@@ -109,5 +120,47 @@ class BaseOperationsFactoryTest {
         assertThat(stringResult).isSameAs(stringExecutor)
         assertThat(integerResult).isSameAs(integerExecutor)
         assertThat(listResult).isSameAs(listExecutor)
+    }
+
+    @Test
+    void testResetClearsCachedExecutors() {
+        // Given
+        def mockFactory = { -> "cached executor" }
+        factory.register(String.class, mockFactory)
+        def result1 = factory.create(String.class)
+        
+        // Verify cache has 1 item before reset
+        assertThat(factory.getFactories()).hasSize(1)
+        assertThat(factory.getCachedExecutors()).hasSize(1)
+
+        // When
+        factory.reset()
+
+        // Then
+        assertThat(factory.getFactories()).hasSize(1)
+        assertThat(factory.getCachedExecutors()).isEmpty()
+    }
+    
+    @Test
+    void testOnResetIsCalledExactlyOnceDuringReset() {
+        // Given
+        def mockFactory = { -> "cached executor" }
+        factory.register(String.class, mockFactory)
+        factory.create(String.class)
+        
+        // Verify onReset not called initially
+        assertThat(factory.onResetCallCount).isEqualTo(0)
+        
+        // When
+        factory.reset()
+        
+        // Then
+        assertThat(factory.onResetCallCount).isEqualTo(1)
+        
+        // When called again
+        factory.reset()
+        
+        // Then
+        assertThat(factory.onResetCallCount).isEqualTo(2)
     }
 }
